@@ -3,6 +3,7 @@ const app = express();
 const {engine} = require('express-handlebars');
 const bodyParser = require('body-parser')
 const usuario = require('./database/models/usuario')
+const moment = require('moment')
 
 //configurando uso do handlebars
 app.engine('handlebars', engine())
@@ -14,7 +15,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get('/', (req, res)=>{
-    res.render('listar_usuario')
+    usuario.findAll().then((usuarios)=>{
+        res.render('listar_usuario', {usuarios: usuarios.map(usuarios=> usuarios.toJSON())})
+    }).catch((error)=>{
+        console.log('erro na busca dos usuarios' + error)
+    })
+    
 })
 
 app.get('/cad-usuario', (req, res)=>{

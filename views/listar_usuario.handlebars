@@ -1,1 +1,9 @@
 <h1>Listar Usuarios</h1>
+
+{{#each usuarios}}
+    <h2>Nome:</h2> {{nome}} <br>
+    <h2>Email:</h2> {{email}}<br>
+    <h2>Idade:</h2> {{idade}} <br>
+    <h2>Criado: </h2>{{ createdAt }}<br>
+    <hr>
+{{/each}}
